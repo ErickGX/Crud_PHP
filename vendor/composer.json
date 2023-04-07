@@ -1,0 +1,17 @@
+{
+    "name": "bellas/crud",
+    "description": "Sistema CRUD para uma esmalteria",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Bellas\\Crud\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ErickGX"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
