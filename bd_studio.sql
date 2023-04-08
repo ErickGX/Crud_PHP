@@ -2,36 +2,45 @@ create database bd_studio;
 
 use bd_studio;
 
-create table Clientes (
+create table clientes (
 
     id_cliente INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
     data_cadastro DATETIME NOT NULL,
     nome VARCHAR(150) NOT NULL,
-    contato VARCHAR(11) NOT NULL,
     CPF TINYINT(11) NOT NULL UNIQUE,
     email VARCHAR(150) NOT NULL,
     idade TINYINT NOT NULL,
-    senha VARCHAR(150) NOT NULL
+    senha VARCHAR(150) NOT NULL,
+    id_telefone int not null,
+    CONSTRAINT FK_clientes_telefone_cliente FOREIGN KEY (id_telefone) REFERENCES telefone_cliente(id_telefone)
 );
 
-CREATE TABLE Funcionarios (
+CREATE TABLE funcionarios (
 
     id_funcionario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    funcao VARCHAR(50) NOT NULL,
-    salario FLOAT NOT NULL,
     data_admissao DATETIME,
     nome VARCHAR(150) NOT NULL,
-    contato VARCHAR(11) NOT NULL,
     CPF TINYINT(11) NOT NULL UNIQUE,
     email VARCHAR(150) NOT NULL,
     idade TINYINT NOT NULL,
-    senha VARCHAR(150) NOT NULL
+    senha VARCHAR(150) NOT NULL,
+    id_cargo int not null,
+    id_telefone int not null,
+    CONSTRAINT FK_funcionarios_telefone_funcionario FOREIGN KEY (id_telefone) REFERENCES telefone_funcionario(id_telefone),
+    CONSTRAINT FK_funcionarios_cargos FOREIGN KEY (id_cargo) REFERENCES cargos(id_cargo)
+
+);
+
+create table cargos (
+    id_cargo INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome_cargo VARCHAR(40) NOT NULL,
+    salario decimal(7,2) not null
 );
 
 CREATE TABLE servicos  (
     id_servico int not null AUTO_INCREMENT  PRIMARY KEY,
     descricao VARCHAR(50) not null,
-    preco FLOAT not null
+    preco decimal(7,2) not null
 );   
 
 CREATE TABLE Agendamentos (
@@ -48,7 +57,7 @@ CREATE TABLE Agendamentos (
     REFERENCES Funcionarios(id_funcionario)  
 );
 
-CREATE TABLE Vendas (
+CREATE TABLE vendas (
     id_venda int not null AUTO_INCREMENT PRIMARY KEY,
     valor float not null,
     data_venda DATETIME not null,
@@ -64,4 +73,21 @@ CREATE TABLE Vendas (
     REFERENCES Funcionarios(id_funcionario),
     CONSTRAINT FK_Vendas_agendamentos FOREIGN KEY (id_agendamento)
     REFERENCES  Agendamentos(id_agendamento)
+);
+
+
+create table telefone_cliente (
+    id_telefone int not null  AUTO_INCREMENT PRIMARY KEY,
+    telefone VARCHAR(11),
+    id_cliente int not null,
+
+    CONSTRAINT FK_telefone_cliente_cliente FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)   
+);
+
+create table telefone_funcionario (
+    id_telefone int not null  AUTO_INCREMENT PRIMARY KEY,
+    telefone VARCHAR(11),
+    id_funcionario int not null,
+
+    CONSTRAINT FK_telefone_funcionario_funcionario FOREIGN KEY (id_funcionario) REFERENCES funcionarios(id_funcionario)   
 );
