@@ -7,6 +7,8 @@ abstract class Pessoa {
     private $email;
     private $senha;
 
+	private $telefone;
+
     protected function __construct(){
 
     }
@@ -88,6 +90,22 @@ abstract class Pessoa {
 	 */
 	public function setSenha($senha): self {
 		$this->senha = $senha;
+		return $this;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getTelefone() {
+		return $this->telefone;
+	}
+	
+	/**
+	 * @param mixed $telefone 
+	 * @return self
+	 */
+	public function setTelefone($telefone): self {
+		$this->telefone = $telefone;
 		return $this;
 	}
 }

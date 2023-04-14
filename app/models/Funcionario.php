@@ -9,9 +9,6 @@ Final class Funcionario extends Pessoa {
         parent::__construct();
     }
 
-
-
-
 	/**
 	 * @return mixed
 	 */
